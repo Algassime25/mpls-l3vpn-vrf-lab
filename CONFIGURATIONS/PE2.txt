@@ -1,0 +1,167 @@
+hostname PE2
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition CAN
+ rd 100:2
+ !
+ address-family ipv4
+  route-target export 100:2
+  route-target import 100:1
+ exit-address-family
+!
+vrf definition WAL
+ rd 200:2
+ !
+ address-family ipv4
+  route-target export 200:2
+  route-target import 200:1
+ exit-address-family
+!
+!
+no aaa new-model
+no ip icmp rate-limit unreachable
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+mpls label range 200 299
+!         
+!
+!
+!
+!
+!
+!
+!
+!
+!
+redundancy
+!
+!
+ip tcp synwait-time 5
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!         
+interface Loopback0
+ ip address 2.2.2.2 255.255.255.255
+!
+interface FastEthernet0/0
+ vrf forwarding CAN
+ ip address 30.0.0.2 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface FastEthernet0/1
+ vrf forwarding WAL
+ ip address 40.0.0.2 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface Serial1/0
+ ip address 50.0.0.2 255.255.255.252
+ mpls ip
+ serial restart-delay 0
+!
+interface Serial1/1
+ no ip address
+ shutdown 
+ serial restart-delay 0
+!
+interface Serial1/2
+ no ip address
+ shutdown
+ serial restart-delay 0
+!
+interface Serial1/3
+ no ip address
+ shutdown
+ serial restart-delay 0
+!
+!
+router eigrp 7
+ !
+ address-family ipv4 vrf WAL autonomous-system 7
+  redistribute bgp 65000 metric 10000 100 255 1 1500
+  network 40.0.0.0 0.0.0.3
+ exit-address-family
+!
+router ospf 55 vrf CAN
+ redistribute bgp 65000 subnets
+ network 30.0.0.0 0.0.0.3 area 0
+!
+router ospf 50
+ network 2.2.2.2 0.0.0.0 area 0
+ network 50.0.0.0 0.0.0.3 area 0
+!
+router bgp 65000
+ bgp log-neighbor-changes
+ neighbor 1.1.1.1 remote-as 65000
+ neighbor 1.1.1.1 update-source Loopback0
+ !
+ address-family vpnv4
+  neighbor 1.1.1.1 activate
+  neighbor 1.1.1.1 send-community extended
+  neighbor 1.1.1.1 next-hop-self
+ exit-address-family
+ !
+ address-family ipv4 vrf CAN
+  redistribute ospf 55
+ exit-address-family
+ !
+ address-family ipv4 vrf WAL
+  redistribute eigrp 7
+ exit-address-family
+!
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+!
+!
+!
+no cdp log mismatch duplex
+!
+!
+!
+control-plane
+!
+!
+!
+mgcp profile default
+!
+!
+!
+gatekeeper
+ shutdown
+!
+!         
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line aux 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line vty 0 4
+ login
+ transport input all
+

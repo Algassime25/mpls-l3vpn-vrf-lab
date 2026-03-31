@@ -1,0 +1,129 @@
+hostname CE-A1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition CAN
+ rd 100:1
+ !
+ address-family ipv4
+  route-target export 100:1
+  route-target import 100:2
+ exit-address-family
+!
+!         
+no aaa new-model
+no ip icmp rate-limit unreachable
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!         
+redundancy
+!
+!
+ip tcp synwait-time 5
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 172.16.1.1 255.255.255.0
+!
+interface FastEthernet0/0
+ ip address 10.0.0.1 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface FastEthernet0/1
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface Serial1/0
+ no ip address
+ shutdown
+ serial restart-delay 0
+!
+interface Serial1/1
+ no ip address
+ shutdown
+ serial restart-delay 0
+!
+interface Serial1/2
+ no ip address
+ shutdown
+ serial restart-delay 0
+!
+interface Serial1/3
+ no ip address
+ shutdown 
+ serial restart-delay 0
+!
+router ospf 5
+ network 10.0.0.0 0.0.0.3 area 0
+ network 172.16.1.0 0.0.0.255 area 0
+!
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+!
+!
+!
+no cdp log mismatch duplex
+!
+!
+!
+control-plane
+!
+!
+!
+mgcp profile default
+!
+!         
+!
+gatekeeper
+ shutdown
+!
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line aux 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line vty 0 4
+ login
+ transport input all
+!
+!
+end
+
