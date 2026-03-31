@@ -1,6 +1,6 @@
 # MPLS Layer 3 VPN & VRF Lab
 
-## 📌 Overview | Aperçu
+## Overview | Aperçu
 
 **EN:**  
 Implementation of an MPLS Layer 3 VPN infrastructure enabling multiple companies to connect their sites through a service provider network with strict traffic isolation using VRFs.
@@ -10,7 +10,7 @@ Mise en place d’une infrastructure MPLS Layer 3 VPN permettant à plusieurs en
 
 ---
 
-## ⚙️ Technologies
+## Technologies
 
 - MPLS, LDP, CEF  
 - MP-BGP (VPNv4)  
@@ -19,15 +19,15 @@ Mise en place d’une infrastructure MPLS Layer 3 VPN permettant à plusieurs en
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
-- **P routers:** MPLS core  
-- **PE routers:** provider edge (VRF, BGP)  
-- **CE routers:** customer edge (OSPF / EIGRP)  
+- P routers: MPLS core  
+- PE routers: provider edge (VRF, BGP)  
+- CE routers: customer edge (OSPF / EIGRP)  
 
 ---
 
-## 💡 Value | Valeur
+## Value | Valeur
 
 **EN:**  
 Secure multi-site connectivity, customer isolation, and scalable service provider design.
@@ -37,15 +37,15 @@ Connexion sécurisée multi-sites, isolation des clients et architecture scalabl
 
 ---
 
-## ✅ Results | Résultats
+## Results | Résultats
 
-- Intra-customer communication ✅  
-- Inter-customer isolation ✅  
-- MPLS forwarding operational ✅  
+- Intra-customer communication  
+- Inter-customer isolation  
+- MPLS forwarding operational  
 
 ---
 
-## 📈 Conclusion
+## Conclusion
 
 **EN:**  
 Demonstrates a real-world service provider architecture ensuring secure and scalable connectivity.
