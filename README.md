@@ -2,11 +2,13 @@
 
 ## Overview | Aperçu
 
+## Overview | Aperçu
+
 **EN:**  
-Implementation of an MPLS Layer 3 VPN infrastructure enabling multiple companies to connect their sites through a service provider network with strict traffic isolation using VRFs.
+Design and implementation of an MPLS Layer 3 VPN infrastructure allowing multiple companies to securely interconnect their remote sites through a shared service provider network. Traffic is isolated using VRFs, while MP-BGP ensures route distribution between sites.
 
 **FR :**  
-Mise en place d’une infrastructure MPLS Layer 3 VPN permettant à plusieurs entreprises de connecter leurs sites via un fournisseur tout en assurant une isolation complète grâce aux VRF.
+Conception et mise en place d’une infrastructure MPLS Layer 3 VPN permettant à plusieurs entreprises de connecter leurs sites distants de manière sécurisée à travers un réseau fournisseur partagé. L’isolation du trafic est assurée par les VRF, tandis que MP-BGP permet la distribution des routes entre les sites.
 
 ---
 
